@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="controller.FFController"
+            prefHeight="600.0" prefWidth="800.0">
+    <Button text="读取文法">
+
+    </Button>
+
+    <HBox layoutY="30">
+        <HBox prefWidth="400">
+            <Button>
+                牛师傅
+            </Button>
+        </HBox>
+        <HBox prefWidth="400">
+
+        </HBox>
+    </HBox>
+</AnchorPane>

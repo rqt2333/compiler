@@ -1,0 +1,191 @@
+S
+	: function functions
+	;;
+
+function
+	: func_type PUSH funcname ADDFUN '(' args ')' program
+	;;
+
+func_type
+	: type
+	| 'void'
+	;;
+
+functions
+	: function functions
+	| ε
+	;;
+
+funcname
+	: id
+	| 'main'
+	;;
+
+args
+	: type PUSH id PUSH ADDARG arg
+	| ε
+	;;
+
+arg
+	: , type PUSH id PUSH ADDARG arg
+	| ε
+	;;
+
+program
+	: ';'
+	| '{' LEVELA expmaker '}' LEVELS
+	;;
+
+loop_program
+	: '{' LEVELA expmaker break_loop '}' LEVELS
+	| ';'
+	;;
+
+break_loop
+	: break ';'
+	| continue ';'
+	| ε
+	;;
+
+isreturn
+	: return RE return_type ';'
+	| ε
+	;;
+
+return_type
+	: cons_type PUSH RET
+	| id PUSH RET
+	| ε
+	;;
+
+expmaker
+	: cons type id idassignment ';' expmaker
+	| id var_func ';' expmaker
+	| 'if' '(' boolexp ')' IF program iselse expmaker
+	| 'while' '(' boolexp ')' DO loop_program WE expmaker
+	| 'do' DOW loop_program 'while' '(' boolexp ')' ';' expmaker
+	| print '(' print_arg PUSH ')' ; PRINT expmaker
+	| 'for' '(' type id PUSH var_func ';' boolexp ';' id PUSH increment ')' DO loop_program INDE WE expmaker
+	| isreturn
+	| ε
+	;;
+
+print_arg
+	: id
+	| cons_type
+	;;
+
+increment
+	: '++' PUSH
+	| '--' PUSH
+	;;
+
+_args
+	: id PUSHARG _arg ARG
+	| ε
+	;;
+
+_arg
+	: , id PUSHARG _arg ARG
+	| ε
+	;;
+
+var_func
+	: grop exp ASSI
+	| CALLFUN '(' _args ')' CALLS
+	;;
+
+iselse
+	: ε IEFIR
+	| 'else' EL elif
+	;;
+
+elif
+	: '{' LEVELA expmaker '}' LEVELS IESEC
+	| ε
+	;;
+
+grop
+	: PUSH '='
+	| PUSH '[' int_const PUSHNUM ']' '='
+	;;
+
+idassignment
+	: ε
+	| PUSH '=' exp ASSI idassis
+	| '[' int_const ']'
+	| , id idassignment
+	;;
+
+idassis
+	: , id idassignment
+	| ε
+	;;
+
+boolexp
+	: beforexp afterexp
+	;;
+
+beforexp
+	: exp
+	;;
+
+afterexp
+	: '>' exp GREA
+	| '<' exp LESS
+	| '==' exp EQUA
+	| '>=' exp GREQ
+	| '<=' exp LEEQ
+	| '!=' exp NOEQ
+	| ε
+	;;
+
+exp
+	: assignment_exp additive_exp
+	;;
+
+additive_exp
+	: '+' assignment_exp GEQA additive_exp
+	| '-' assignment_exp GEQS additive_exp
+	| ε
+	;;
+
+assignment_exp
+	: primary_exp mult_exp
+	;;
+
+mult_exp
+	: '*' primary_exp GEQM mult_exp
+	| '/' primary_exp GEQD mult_exp
+	| ε
+	;;
+
+primary_exp
+	: id PUSH return_func
+	| cons_type PUSH
+	| '(' exp ')'
+	;;
+
+return_func
+	: CALLFUN '(' _args ')' CALLS
+	| ε
+	;;
+
+type
+	: 'int'
+	| 'char'
+	| 'float'
+	| 'string'
+	;;
+
+cons_type
+	: float_const
+	| int_const
+	| string_const
+	| char_const
+	;;
+
+cons
+	: 'const'
+	| ε
+	;;

@@ -1,0 +1,192 @@
+S
+	: function functions
+	;;
+
+function
+	: func_type funcname '(' args ')' program
+	;;
+
+func_type
+	: type
+	| 'void'
+	;;
+
+functions
+	: function functions
+	| ε
+	;;
+
+funcname
+	: id
+	| 'main'
+	;;
+
+args
+	: type id arg
+	| ε
+	;;
+
+arg
+	: , type id arg
+	| ε
+	;;
+
+program
+	: ';'
+	| '{' expmaker '}'
+	;;
+
+loop_program
+	: '{' expmaker break_loop '}'
+	| ';'
+	;;
+
+break_loop
+	: break ';'
+	| continue ';'
+	| ε
+	;;
+
+isreturn
+	: return return_type ';'
+	| ε
+	;;
+
+return_type
+	: cons_type
+	| id
+	| ε
+	;;
+
+expmaker
+	: cons type id idassignment ';' expmaker
+	| id var_func ';' expmaker
+	| 'if' '(' boolexp ')' program iselse expmaker
+	| 'while' '(' boolexp ')' loop_program expmaker
+	| 'do' loop_program 'while' '(' boolexp ')' ';' expmaker
+	| print '(' print_arg ')' ; expmaker
+	| 'for' '(' type id var_func ';' boolexp ';' id increment ')' loop_program expmaker
+	| isreturn
+	| ε
+	;;
+
+print_arg
+	: id
+	| cons_type
+	;;
+
+increment
+	: '++'
+	| '--'
+	;;
+
+_args
+	: id _arg
+	| ε
+	;;
+
+_arg
+	: , id _arg
+	| ε
+	;;
+
+var_func
+	: grop exp
+	| '(' _args ')'
+	;;
+
+iselse
+	: 'else' elif
+	| ε
+	;;
+
+elif
+	: '{' expmaker '}'
+	| ε
+	;;
+
+grop
+	: '='
+	| '[' int_const ']' '='
+	;;
+
+idassignment
+	: '=' exp idassis
+	| '[' int_const ']'
+	| , id idassignment
+	| ε
+	;;
+
+idassis
+	: , id idassignment
+	| ε
+	;;
+
+
+boolexp
+	: beforexp afterexp
+	;;
+
+beforexp
+	: exp
+	;;
+
+afterexp
+	: '>' exp
+	| '<' exp
+	| '==' exp
+	| '>=' exp
+	| '<=' exp
+	| '!=' exp
+	| ε
+	;;
+
+exp
+	: assignment_exp additive_exp
+	;;
+
+additive_exp
+	: '+' assignment_exp additive_exp
+	| '-' assignment_exp additive_exp
+	| ε
+	;;
+
+assignment_exp
+	: primary_exp mult_exp
+	;;
+
+mult_exp
+	: '*' primary_exp mult_exp
+	| '/' primary_exp mult_exp
+	| ε
+	;;
+
+primary_exp
+	: id return_func
+	| cons_type
+	| '(' exp ')'
+	;;
+
+return_func
+	: '(' _args ')'
+	| ε
+	;;
+
+type
+	: 'int'
+	| 'char'
+	| 'float'
+	| 'string'
+	;;
+
+cons_type
+	: float_const
+	| int_const
+	| string_const
+	| char_const
+	;;
+
+cons
+	: 'const'
+	| ε
+	;;

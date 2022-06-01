@@ -1,0 +1,7 @@
+digraph G {rankdir=LR
+node [ fontcolor=blue shape=circle ]
+0 -> 0[label=a]
+0 -> 0[label=b]
+1[shape=doublecircle color=red]
+0 -> 1[label=c]
+}

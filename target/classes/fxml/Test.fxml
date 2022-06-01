@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.web.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="836.0" prefWidth="1131.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MyController">
+   <children>
+       <MenuBar prefHeight="30">
+          <menus>
+              <Menu text="文件">
+                 <items>
+                     <MenuItem accelerator="Ctrl+O" mnemonicParsing="false" onAction="#openFile" text="打开文件" />
+                     <MenuItem mnemonicParsing="false" text="新建文件" />
+                     <MenuItem accelerator="Ctrl+S" mnemonicParsing="false" onAction="#saveFile" text="保存" />
+                     <MenuItem mnemonicParsing="false" text="另存为" />
+                 </items>
+              </Menu>
+              <Menu text="词法分析">
+                 <items>
+                     <MenuItem mnemonicParsing="false" onAction="#analyse" text="分析" />
+                     <MenuItem mnemonicParsing="false" onAction="#NFA_DFA_MFA" text="NFA-DFA-MFA" />
+                 </items>
+              </Menu>
+              <Menu text="语法分析">
+                 <items>
+                     <MenuItem mnemonicParsing="false" text="LL(1)预测分析方法" onAction="#predict"/>
+                     <MenuItem mnemonicParsing="false" text="生成语法树" onAction="#generateGrammarTree"/>
+                 </items>
+              </Menu>
+              <Menu text="语义分析">
+                 <items>
+                     <MenuItem mnemonicParsing="false" text="生成中间代码" onAction="#generateMiddleCode"/>
+                 </items>
+              </Menu>
+              <Menu text="生成目标代码">
+                 <items>
+                     <MenuItem mnemonicParsing="false" text="生成汇编代码" onAction="#generateAsmCode"/>
+                 </items>
+              </Menu>
+          </menus>
+       </MenuBar>
+      <HBox layoutX="758.0" layoutY="32.0" prefHeight="452.0" prefWidth="357.0">
+         <children>
+            <TextArea fx:id="resultArea" prefHeight="452.0" prefWidth="368.0" />
+         </children>
+      </HBox>
+      <HBox layoutX="6.0" layoutY="497.0" prefHeight="330.0" prefWidth="745.0">
+         <children>
+            <TextArea prefHeight="330.0" prefWidth="745.0" fx:id="resultArea1"/>
+         </children>
+      </HBox>
+      <HBox layoutX="758.0" layoutY="497.0" prefHeight="330.0" prefWidth="357.0">
+         <children>
+            <TextArea prefHeight="330.0" prefWidth="363.0" fx:id="resultArea2"/>
+         </children>
+      </HBox>
+      <BorderPane layoutY="32.0" prefHeight="458.0" prefWidth="751.0">
+         <left>
+            <TextArea prefHeight="458.0" prefWidth="10.0" BorderPane.alignment="CENTER" />
+         </left>
+         <center>
+            <TextArea fx:id="editArea" prefHeight="458.0" prefWidth="639.0" BorderPane.alignment="CENTER" />
+         </center>
+      </BorderPane>
+   </children>
+</AnchorPane>
